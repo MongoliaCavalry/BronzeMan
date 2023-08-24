@@ -1,9 +1,9 @@
 {
-    "name": "BronzeMan",
+    "name": "DeepLearning",
     "author": "liupengzhouyi",
     "version": "1.0",
-    "category": "BronzeMan",
-    "url": "https://github.com/liupengzhouyi/BronzeMan.git",
+    "category": "DeepLearning",
+    "url": "https://github.com/liupengzhouyi/DeepLearning.git",
     "branch": "main",
     "code_path": "/Users/pengliu/Code",
     "engine": "shell"

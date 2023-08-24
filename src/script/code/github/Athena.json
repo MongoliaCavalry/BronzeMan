@@ -1,10 +1,11 @@
 {
-    "name": "BronzeMan",
+    "name": "Athena",
     "author": "liupengzhouyi",
     "version": "1.0",
-    "category": "BronzeMan",
-    "url": "https://github.com/liupengzhouyi/BronzeMan.git",
+    "category": "Athena",
+    "url": "https://github.com/liupengzhouyi/Athena.git",
     "branch": "main",
     "code_path": "/Users/pengliu/Code",
     "engine": "shell"
 }
+

@@ -1,9 +1,9 @@
 {
-    "name": "BronzeMan",
+    "name": "Grandet",
     "author": "liupengzhouyi",
     "version": "1.0",
-    "category": "BronzeMan",
-    "url": "https://github.com/liupengzhouyi/BronzeMan.git",
+    "category": "Grandet",
+    "url": "https://github.com/liupengzhouyi/Grandet.git",
     "branch": "main",
     "code_path": "/Users/pengliu/Code",
     "engine": "shell"

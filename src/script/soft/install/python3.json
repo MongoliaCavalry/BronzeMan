@@ -1,0 +1,7 @@
+{
+    "name": "python3",
+    "version": "1.0",
+    "liunx_shell_engine": "apt-get",
+    "mac_shell_engine": "brew",
+    "engine": "shell"
+}

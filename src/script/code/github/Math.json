@@ -1,9 +1,9 @@
 {
-    "name": "BronzeMan",
+    "name": "Math",
     "author": "liupengzhouyi",
     "version": "1.0",
-    "category": "BronzeMan",
-    "url": "https://github.com/liupengzhouyi/BronzeMan.git",
+    "category": "Math",
+    "url": "https://github.com/liupengzhouyi/Math.git",
     "branch": "main",
     "code_path": "/Users/pengliu/Code",
     "engine": "shell"

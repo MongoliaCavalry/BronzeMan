@@ -22,8 +22,7 @@ if __name__ == '__main__':
         script_shunt = Shunt(file_path=item, folder_path=folder_path)
         script_shunt.operation()
         
-        
-        
+
         print_log(msg=f"Run script: {item} over.", level="DEBUG")
         
         

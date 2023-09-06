@@ -2,6 +2,22 @@
 #!codeing=utf-8
 
 import inspect
+from datetime import datetime
+from termcolor import colored
+
+
+def get_now_date_time() -> str:
+    """get_now_date_time
+
+    Returns:
+        str: date time
+    """
+    
+    # Get current date and time
+    now = datetime.now()
+    formatted_date_time = now.strftime('%Y-%m-%d %H:%M:%S')
+    date_time = str(formatted_date_time)
+    return date_time
 
 
 def inject_file_and_line_number(func):
@@ -31,13 +47,22 @@ def inject_file_and_line_number(func):
 @inject_file_and_line_number
 def print_log(msg: str="", level: str="DEBUG", file_name: str="", line_number: int=-1) -> None:
     
+    date_time = get_now_date_time()
+    
     if level == "DEBUG":
-        print(f"[DEBUG][{file_name}:{str(line_number)}] {msg}")
+        info = f"{date_time} DEBUG {msg} At:{file_name}:{str(line_number)}."
+        info = colored(info, 'green')
+        print(info)
     elif level == "INFO":
         print(msg)
     elif level == "WARNING":
-        print(f"[WARNING][{file_name}:{str(line_number)}] {msg}")
+        # print(f"[WARNING][{file_name}:{str(line_number)}] {msg}")
+        info = f"{date_time} DEBUG {msg} At:{file_name}:{str(line_number)}."
+        info = colored(info, 'y')
+        print(info)
     elif level == "ERROR":
-        print(msg)
+        info = f"{date_time} ERROR {msg} At:{file_name}:{str(line_number)}."
+        info = colored(info, 'red')
+        print(info)
     elif level == "CRITICAL":
         print(msg)

@@ -2,7 +2,8 @@
 #!codeing=utf-8
 
 from src.tools.log4py.log4py import print_log
-
+from src.tools.os_tools.generate_log_image_by_chat import generate_char_code_image
+from src.model.shell_tools import ShellTool
 
 class CodeClone:
     
@@ -34,7 +35,13 @@ class CodeClone:
     def clone(self) -> None:
         
         shell = self.generate_shell()
-        print_log(msg=f"{self.abstract_of_description()}", level="DEBUG")
+        for item in generate_char_code_image(self.name, 80, 16):
+            print_log(msg=item, level="INFO")
+        log = f"Clone code: {shell}"
+        print_log(msg=log, level="DEBUG")
+        shell_tools = ShellTool()
+        shell_tools.run(cmd=shell)
+            
     
     
     def delete(self) -> None:

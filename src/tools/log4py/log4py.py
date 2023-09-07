@@ -80,4 +80,4 @@ def print_log(msg: str="", level: str="DEBUG", file_name: str="", line_number: i
     elif level == "CRITICAL":
         pass
     print(info)
-    save_log(log_message=info, log_file_path="/Users/pengliu/Code/BronzeMan/log/log.log")
+    save_log(log_message=info, log_file_path="/home/Code/github/BronzeMan/log/log.log")

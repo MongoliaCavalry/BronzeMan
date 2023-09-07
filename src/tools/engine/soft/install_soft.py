@@ -94,7 +94,12 @@ class SoftTool:
     
     def install_soft_by_shell(self, shell_path: str) -> None:
         
-        pass
+        print("000000000000000000000000000000000000000000000")
+        command_str = f"sh {shell_path}"
+        shell_tools = ShellTool()
+        shell_tools.run(cmd=command_str)
+        print("000000000000000000000000000000000000000000000")
+        
     
     def uninstall_soft(self) -> None:
         

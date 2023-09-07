@@ -4,5 +4,5 @@ config = [
     {"soft": ""},
     {"env": ""},
     {"code": ""},
-    {"action": ""}
+    {"action": ""},
 ]

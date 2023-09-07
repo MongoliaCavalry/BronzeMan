@@ -44,25 +44,40 @@ def inject_file_and_line_number(func):
     return wrapper
 
 
+def save_log(log_message: str, log_file_path: str):
+    """
+    Save a log message to the specified log file.
+
+    Parameters:
+    - log_message (str): The message to be logged.
+    - log_file_path (str): The path to the log file.
+
+    Returns:
+    - None
+    """
+    with open(log_file_path, 'a') as log_file:
+        log_file.write(log_message + '\n')
+
+
+
 @inject_file_and_line_number
 def print_log(msg: str="", level: str="DEBUG", file_name: str="", line_number: int=-1) -> None:
     
     date_time = get_now_date_time()
-    
+    info = msg
     if level == "DEBUG":
         info = f"{date_time} DEBUG {msg} At:{file_name}:{str(line_number)}."
         info = colored(info, 'green')
-        print(info)
     elif level == "INFO":
-        print(msg)
+        info = f"{date_time} DEBUG {msg} At:{file_name}:{str(line_number)}."
+        info = colored(info, 'blue')
     elif level == "WARNING":
-        # print(f"[WARNING][{file_name}:{str(line_number)}] {msg}")
         info = f"{date_time} DEBUG {msg} At:{file_name}:{str(line_number)}."
         info = colored(info, 'y')
-        print(info)
     elif level == "ERROR":
         info = f"{date_time} ERROR {msg} At:{file_name}:{str(line_number)}."
         info = colored(info, 'red')
-        print(info)
     elif level == "CRITICAL":
-        print(msg)
+        pass
+    print(info)
+    save_log(log_message=info, log_file_path="/Users/pengliu/Code/BronzeMan/log/log.log")

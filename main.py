@@ -6,6 +6,7 @@ from src.model.load_script import load_script_file
 from src.model.shunt import Shunt
 from src.tools.engine.code.github.clone import CodeClone
 from src.tools.log4py.log4py import print_log
+from src.tools.engine.soft.install_soft import SoftTool
 
 
 if __name__ == '__main__':

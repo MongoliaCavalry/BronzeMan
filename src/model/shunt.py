@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 #!codeing=utf-8
 
+import os
+
 from src.tools.log4py.log4py import print_log
 from src.model.load_json import load_json_to_dict
 from src.tools.engine.code.github.clone import CodeClone
+from src.tools.engine.soft.install_soft import SoftTool
 
 
 class Shunt:
@@ -23,9 +26,34 @@ class Shunt:
         code_clone = CodeClone(info=json_info)
         code_clone.clone()
         
-    def install_soft(self) -> None:
         
-        pass
+    def install_soft(self, file_path: str) -> None:
+        
+        file_type_code = self.check_file_type(file_path)
+        
+        if file_type_code == -1:
+            # path error
+            return
+        elif file_type_code == 1:
+            # json
+            log_info = f"Load soft info from json file: {file_path}."
+            print_log(msg=log_info, level="DEBUG")
+            json_info = load_json_to_dict(json_file_path=file_path)
+            install_soft_tool = SoftTool()
+            install_soft_tool.install_soft_by_json(info=json_info)
+            return
+        elif file_type_code == 2:
+            # shell
+            install_soft_tool = SoftTool()
+            install_soft_tool.install_soft_by_shell(shell_path=file_path)
+            pass
+        elif file_type_code == 3:
+            # python
+            pass
+        else:
+            print_log(msg="ERROR: Unsupported file type.", level="ERROR")
+ 
+        
     
     
     def build_env(self) -> None:
@@ -39,9 +67,52 @@ class Shunt:
             if item == "code":
                 self.clone_code(file_path=self.file_path)
             if item == "soft":
-                pass
+                self.install_soft(file_path=self.file_path)
             if item == "env":
                 pass
             if item == "action":
                 pass
         
+                
+    @classmethod
+    def check_file_type(cls, file_path) -> int:
+        """
+        Check the type of the file based on its extension and if it exists.
+
+        Parameters:
+        - file_path (str): The path to the file.
+
+        Returns:
+        - int: 
+            1 if it's a JSON file,
+            2 if it's a Shell script file,
+            3 if it's a Python file,
+            -1 if the file path is invalid or doesn't exist,
+            0 for any other file type.
+        """
+
+        print_log(msg="Check the type of the file based on its extension and if it exists.", level="DEBUG")
+        # Check if the file exists
+        if not os.path.exists(file_path):
+            log = f"ERROR: The file '{file_path}' does not exist."
+            print_log(msg=log, level="ERROR")
+            return -1
+
+        # Check the file extension
+        _, extension = os.path.splitext(file_path)
+        if extension == ".json":
+            log = f"INFO: The file '{file_path}' is a JSON file."
+            print_log(msg=log, level="DEBUG")
+            return 1
+        elif extension in [".sh", ".bash"]:
+            log = f"INFO: The file '{file_path}' is a Shell file."
+            print_log(msg=log, level="DEBUG")
+            return 2
+        elif extension == ".py":
+            log = f"INFO: The file '{file_path}' is a Python file."
+            print_log(msg=log, level="DEBUG")
+            return 3
+        else:
+            log = f"WARNING: The file '{file_path}' is of an unknown type."
+            print_log(msg=log, level="ERROR")
+            return 0

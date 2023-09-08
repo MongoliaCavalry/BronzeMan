@@ -1,0 +1,10 @@
+{
+    "image_name": "jenkins",
+    "image_version": "latest",
+    "pull_command": "docker pull jenkins",
+    "container_name": "test_jenkins",
+    "container_port": [7000, 50000],
+    "host_port": [7000, 50000],
+    "container_path": [],
+    "host_path": []
+}

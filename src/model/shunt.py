@@ -7,7 +7,7 @@ from src.tools.log4py.log4py import print_log
 from src.model.load_json import load_json_to_dict
 from src.tools.engine.code.github.clone import CodeClone
 from src.tools.engine.soft.install_soft import SoftTool
-
+from src.tools.engine.env.docker.docker_container_manager import DockerContainerManager
 
 class Shunt:
     
@@ -53,23 +53,40 @@ class Shunt:
         else:
             print_log(msg="ERROR: Unsupported file type.", level="ERROR")
  
+
+    def build_docker_env(self, file_path: str) -> None:
+        
+        json_info = load_json_to_dict(json_file_path=file_path)
+        if json_info.keys() == []:
+            print_log(msg="ERROR: Invalid json file.", level="ERROR")
+            return
+        docker_env = DockerContainerManager(params=json_info)
+        docker_env.run()
         
     
-    
-    def build_env(self) -> None:
+    def build_conda_env(self, file_path: str) -> None:
         
         pass
     
     
     def operation(self) -> None:
-        
+
         for item in self.key_words:
             if item == "code":
                 self.clone_code(file_path=self.file_path)
             if item == "soft":
                 self.install_soft(file_path=self.file_path)
             if item == "env":
-                pass
+                if self.key_words[1] == "docker":
+                    print_log(msg="Build docker env.", level="DEBUG")
+                    self.build_docker_env(file_path=self.file_path)
+                elif self.key_words[1] == "conda":
+                    print_log(msg="Build conda env.", level="DEBUG")
+                    self.build_conda_env(file_path=self.file_path)
+                elif self.key_words[1] == "java":
+                    print_log(msg="Build java env.", level="DEBUG")
+                else:
+                    print_log(msg="ERROR: Unsupported env type.", level="ERROR")
             if item == "action":
                 pass
         

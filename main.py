@@ -8,10 +8,13 @@ from src.tools.engine.code.github.clone import CodeClone
 from src.tools.log4py.log4py import print_log
 from src.tools.engine.soft.install_soft import SoftTool
 
+from src.config.config import configration
+
 
 if __name__ == '__main__':
     
-    folder_path = "/home/Code/github/BronzeMan/src/script"
+    folder_path = configration.get("script_path")
+    
     script_type=[".json", ".py", ".shell", "sh"]
     
     scripts = load_script_file(folder_path=folder_path, script_type=script_type)
@@ -19,8 +22,8 @@ if __name__ == '__main__':
     print_log(msg="Begin execute scripts.", level="DEBUG")
     for item in scripts:
         print(f"{item}")
-        if "docker.sh" not in item:
-            continue
+        # if "docker.sh" not in item:
+        #     continue
         print_log(msg=f"Begin run script: {item}.", level="DEBUG")
         
         script_shunt = Shunt(file_path=item, folder_path=folder_path)

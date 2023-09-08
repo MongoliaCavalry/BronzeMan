@@ -5,6 +5,8 @@ import inspect
 from datetime import datetime
 from termcolor import colored
 
+from src.config.config import configration
+
 
 def get_now_date_time() -> str:
     """get_now_date_time
@@ -80,4 +82,5 @@ def print_log(msg: str="", level: str="DEBUG", file_name: str="", line_number: i
     elif level == "CRITICAL":
         pass
     print(info)
-    save_log(log_message=info, log_file_path="/home/Code/github/BronzeMan/log/log.log")
+    log_path = configration.get("log_path")
+    save_log(log_message=info, log_file_path=log_path)

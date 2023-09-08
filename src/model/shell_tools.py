@@ -17,7 +17,7 @@ class ShellTool:
         if not_print:
             cmd = self.no_print(cmd=cmd)
         print_log(msg="执行<" + cmd + ">...", level="DEBUG")
-        # return ""
+        return ""
         result = subprocess.run(args=cmd, timeout=300, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if stderr:  
             return str(result.stdout.decode('utf-8'))

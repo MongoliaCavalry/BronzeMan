@@ -2,6 +2,7 @@
 #!codeing=utf-8
 
 from src.tools.log4py.log4py import print_log
+from src.tools.log4py.log4py import LogLevel
 from src.tools.os_tools.os_tools import check_os
 from src.model.shell_tools import ShellTool
 from src.tools.os_tools.generate_log_image_by_chat import generate_char_soft_image
@@ -45,13 +46,13 @@ class SoftTool:
         if not self.check_json_keys(json_data):
             
             log = f"The provided JSON data contains the following keys: {json_data.keys()}"
-            print_log(msg=log, level="ERROR")
+            print_log(msg=log, level=LogLevel.ERROR)
             return shell_str
         
         engine = json_data.get("engine")
         if engine != "shell":
             log = f"Unsupported engine: {engine}"
-            print_log(msg=log, level="ERROR")
+            print_log(msg=log, level=LogLevel.ERROR)
             return shell_str
             
         if os_code == 1:
@@ -61,16 +62,16 @@ class SoftTool:
         elif os_code == 3:
             # Assuming Windows uses a different mechanism or isn't supported based on the provided JSON
             log = "Windows OS detected. Please install manually."
-            print_log(msg=log, level="ERROR")
+            print_log(msg=log, level=LogLevel.ERROR)
             return shell_str
         else:
             log = "Unsupported OS."
-            print_log(msg=log, level="ERROR")
+            print_log(msg=log, level=LogLevel.ERROR)
             return shell_str
 
         if not shell_engine:
             log = "Shell engine not found for the detected OS."
-            print_log(msg=log, level="ERROR")
+            print_log(msg=log, level=LogLevel.ERROR)
             return shell_str
 
         shell_str = f"{shell_engine} install {json_data['name']}"
@@ -83,14 +84,14 @@ class SoftTool:
         if install_command != "":
             soft_name = info.get("name")
             log = f"Install command: {install_command}"
-            print_log(msg=log, level="DEBUG")
+            print_log(msg=log, level=LogLevel.DEBUG)
             shell_tools = ShellTool()
             shell_tools.run(cmd=install_command)
             for item in generate_char_soft_image(soft_name, 80, 16):
-                print_log(msg=item, level="INFO")
+                print_log(msg=item, level=LogLevel.INFO)
         else:
             log = f"Error json data."
-            print_log(msg=log, level="ERROR")
+            print_log(msg=log, level=LogLevel.ERROR)
     
     def install_soft_by_shell(self, shell_path: str) -> None:
         

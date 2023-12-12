@@ -4,10 +4,19 @@
 import inspect
 from datetime import datetime
 from termcolor import colored
-
+from enum import Enum
 from src.config.config import configration
+from src.config.config import key_of_log_add_file_line_info
 
 
+class LogLevel(Enum):
+    DEBUG = 1
+    INFO = 2
+    WARNING = 3
+    ERROR = 4
+    CRITICAL = 5
+    
+    
 def get_now_date_time() -> str:
     """get_now_date_time
 
@@ -63,23 +72,26 @@ def save_log(log_message: str, log_file_path: str):
 
 
 @inject_file_and_line_number
-def print_log(msg: str="", level: str="DEBUG", file_name: str="", line_number: int=-1) -> None:
+def print_log(msg: str="", level: LogLevel=LogLevel.DEBUG, file_name: str="", line_number: int=-1) -> None:
     
     date_time = get_now_date_time()
     info = msg
-    if level == "DEBUG":
-        info = f"{date_time} DEBUG {msg} At:{file_name}:{str(line_number)}."
+    file_info = "At:" + file_name + ":" + str(line_number)
+    if not key_of_log_add_file_line_info:
+        file_info = ""
+    if level == LogLevel.DEBUG:
+        info = f"{date_time} DEBUG {msg} {file_info}."
         info = colored(info, 'green')
-    elif level == "INFO":
-        info = f"{date_time} DEBUG {msg} At:{file_name}:{str(line_number)}."
+    elif level == LogLevel.INFO:
+        info = f"{date_time} INFO {msg} {file_info}."
         info = colored(info, 'blue')
-    elif level == "WARNING":
-        info = f"{date_time} DEBUG {msg} At:{file_name}:{str(line_number)}."
+    elif level == LogLevel.WARNING:
+        info = f"{date_time} WARNING {msg} {file_info}."
         info = colored(info, 'y')
-    elif level == "ERROR":
-        info = f"{date_time} ERROR {msg} At:{file_name}:{str(line_number)}."
+    elif level == LogLevel.ERROR:
+        info = f"{date_time} ERROR {msg} {file_info}."
         info = colored(info, 'red')
-    elif level == "CRITICAL":
+    elif level == LogLevel.CRITICAL:
         pass
     print(info)
     log_path = configration.get("log_path")

@@ -3,5 +3,6 @@
     "version": "1.0",
     "liunx_shell_engine": "apt-get",
     "mac_shell_engine": "brew",
-    "engine": "shell"
+    "engine": "shell",
+    "check_install": "docker --version | grep 'version'"
 }
